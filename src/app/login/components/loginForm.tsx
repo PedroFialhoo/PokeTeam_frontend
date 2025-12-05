@@ -60,7 +60,7 @@ export default function Login({ setSection }: LoginProps) {
   };
 
   return (
-    <div className="min-h-[450px] p-8 sm:p-20 rounded-xl bg-red-900 text-white space-y-8 sm:space-y-32 shadow-2xl border-2 border-cyan-950 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
+    <div className="min-h-[450px] p-8 sm:p-20 rounded-xl bg-red-900/80 text-white space-y-8 sm:space-y-32 shadow-2xl border-2 border-cyan-950 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
       <h1 className="font-semibold text-4xl">PokeTeam | Login</h1>
       <form onSubmit={onSubmit} className="flex flex-col gap-4 justify-end">
         <Input
