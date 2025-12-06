@@ -2,13 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "PokemonHollow";
+  src: url("/assets/fonts/PokemonHollow.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PokemonSolid";
+  src: url("/assets/fonts/PokemonSolid.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke-width: 0.9px; 
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    color: rgb(199, 199, 199); 
+  }
+}
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
-
-
 
 @layer base {
   :root {
