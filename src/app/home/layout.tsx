@@ -14,8 +14,8 @@ useEffect(() => {
 
     return (
         <div className="flex min-h-screen">
-        <Sidebar />
-        <main className="flex-1 p-8 bg-neutral-100">{children}</main>
+            <Sidebar  />
+            <main className="flex-1 p-8 bg-neutral-100 ml-64">{children}</main>
         </div>
     );
 }

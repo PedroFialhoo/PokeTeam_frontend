@@ -60,7 +60,7 @@ export default function Login({ setSection }: LoginProps) {
   };
 
   return (
-    <div className="min-h-[450px] p-8 sm:p-20 rounded-xl bg-red-900/80 text-white space-y-8 sm:space-y-32 shadow-2xl border-2 border-cyan-950 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
+    <div className="min-h-[450px] p-8 sm:p-20 rounded-xl bg-neutral-900/80 text-white space-y-8 sm:space-y-32 shadow-2xl border-4 border-red-500 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
       <h1 className="font-semibold text-4xl font-pokeSolid text-stroke">PokeTeam | Login</h1>
       <form onSubmit={onSubmit} className="flex flex-col gap-4 justify-end">
         <Input
@@ -77,7 +77,7 @@ export default function Login({ setSection }: LoginProps) {
           onChange={(e) => setPassword(e.target.value)}
           className="bg-gray-200 text-black placeholder-gray-500 focus:bg-gray-300 hover:bg-gray-300"
         />
-        <Button type="submit" className="bg-gray-900 hover:bg-gray-800">Entrar</Button>
+        <Button type="submit" className="bg-red-500 hover:border-2 hover:bg-gray-800 hover:border-red-500">Entrar</Button>
 
         {logging && success && (
           <p className="text-green-500 font-bold">Login realizado com sucesso!</p>

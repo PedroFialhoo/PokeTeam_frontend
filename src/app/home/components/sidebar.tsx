@@ -7,18 +7,32 @@ import { useRouter } from "next/navigation"
 export default function Sidebar(){
     const sidebarOptions = [
     { name: "Ver Pokémons", path: "/pokemons" },
-    { name: "Gerenciar Time", path: "/team-management" },
     { name: "Criar Time", path: "/create-team" },
+    { name: "Gerenciar Time", path: "/team-management" },
     ]
 
     const router = useRouter()
 
     const logout = () => {
-
+        const token = localStorage.getItem('poketeam-token')
+        fetch("http://127.0.0.1:8000/api/auth/logout", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        })
+        .then((response) => {
+        if (response.ok) {
+            localStorage.removeItem('poketeam-token')
+            router.push('/')
+        }
+        })
+        .catch((err) => console.error(err));
     }
 
     return (
-        <aside className="w-64 min-h-screen bg-neutral-900 text-white p-4 shadow-lg flex flex-col">
+        <aside className="w-64 min-h-screen bg-neutral-900 text-white p-4 shadow-lg flex flex-col max-h-screen overflow-y-auto fixed top-0 left-0">
             <h1 className="text-xl font-bold mb-4 text-red-500 border-b border-red-500 pb-2 text-center font-pokeHollow">
                 PokeTeam
             </h1>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface Pokemon {
   id: number;
   name: string;
@@ -51,7 +53,7 @@ export default function PokeCard({ pokemon }: PokeCardProps) {
           {pokemon.types.map((t) => (
             <li
               key={t.slot}
-              className={`text-white px-3 py-2 rounded-3xl text-s font-light brightness-125 shadow-sm min-w-[80px] text-center ${
+              className={`text-white px-3 py-2 rounded-3xl text-s font-light brightness-125 shadow-sm min-w-[80px] text-center capitalize ${
                 typeColors[t.type.name] || "bg-gray-500"
               }`}
             >
@@ -59,10 +61,12 @@ export default function PokeCard({ pokemon }: PokeCardProps) {
             </li>
           ))}
         </ul>
-        <img
+        <Image
             src={pokemon.photo}
             alt={pokemon.name}
-            className="w-[100px] h-[100px] object-contain drop-shadow-md"
+            width={100}
+            height={100}
+            className="object-contain drop-shadow-md"
         />
       </div>
     </div>
