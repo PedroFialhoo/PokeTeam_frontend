@@ -8,7 +8,7 @@ export default function Sidebar(){
     const sidebarOptions = [
     { name: "Ver Pokémons", path: "/pokemons" },
     { name: "Criar Time", path: "/create-team" },
-    { name: "Gerenciar Time", path: "/team-management" },
+    { name: "Gerenciar Time", path: "/management-team" },
     ]
 
     const router = useRouter()
@@ -25,7 +25,7 @@ export default function Sidebar(){
         .then((response) => {
         if (response.ok) {
             localStorage.removeItem('poketeam-token')
-            router.push('/')
+            router.replace('/')
         }
         })
         .catch((err) => console.error(err));
@@ -43,7 +43,7 @@ export default function Sidebar(){
                     key={option.name}
                     variant="ghost"
                     className="justify-start text-left text-sm font-medium hover:bg-red-700 hover:text-white transition-colors duration-200 focus:ring-1 focus:ring-red-500"
-                    onClick={() => router.push(`home/${option.path}`)}
+                    onClick={() => router.replace(`/home/${option.path}`)}
                 >
                     <ChevronRight className="mr-2 h-4 w-4 text-red-500" />
                     {option.name}

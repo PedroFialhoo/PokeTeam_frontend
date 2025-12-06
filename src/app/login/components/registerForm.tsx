@@ -50,6 +50,9 @@ export default function Register({ setSection }: RegisterProps) {
         setCreating(true);
         setSuccess(false);
       });
+      setName("")
+      setEmail("")
+      setPassword("")
   };
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 
 interface Pokemon {
@@ -6,16 +7,14 @@ interface Pokemon {
   number: number;
   types: {
     slot: number;
-    type: {
-      name: string;
-      url: string;
-    };
+    type: { name: string; url: string };
   }[];
   photo: string;
 }
 
 interface PokeCardProps {
   pokemon: Pokemon;
+  onClick?: () => void;
 }
 
 const typeColors: Record<string, string> = {
@@ -39,18 +38,19 @@ const typeColors: Record<string, string> = {
   fairy: "bg-[#f9aec7]",
 };
 
-export default function PokeCard({ pokemon }: PokeCardProps) {
+export default function PokeCard({ pokemon, onClick }: PokeCardProps) {
   return (
     <div
-      className={`p-4 rounded-xl shadow flex flex-col transition-transform duration-200 hover:-translate-y-3 hover:brightness-90 ${
+      onClick={onClick}
+      className={`p-4 rounded-xl shadow flex flex-col transition-transform duration-200 hover:-translate-y-3 hover:brightness-90 cursor-pointer ${
         typeColors[pokemon.types[0].type.name] || "bg-gray-400"
       }`}
     >
       <span className="text-black opacity-30 text-right text-sm">#{pokemon.id}</span>
       <h2 className="text-white text-lg font-bold capitalize mb-1">{pokemon.name}</h2>
       <div className="flex justify-between items-center mt-2">
-        <ul className="flex flex-col space-y-2 ">
-          {pokemon.types.map((t) => (
+        <ul className="flex flex-col space-y-2">
+          {pokemon.types.map(t => (
             <li
               key={t.slot}
               className={`text-white px-3 py-2 rounded-3xl text-s font-light brightness-125 shadow-sm min-w-[80px] text-center capitalize ${
@@ -62,11 +62,11 @@ export default function PokeCard({ pokemon }: PokeCardProps) {
           ))}
         </ul>
         <Image
-            src={pokemon.photo}
-            alt={pokemon.name}
-            width={100}
-            height={100}
-            className="object-contain drop-shadow-md"
+          src={pokemon.photo}
+          alt={pokemon.name}
+          width={100}
+          height={100}
+          className="object-contain drop-shadow-md"
         />
       </div>
     </div>

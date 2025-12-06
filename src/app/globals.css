@@ -23,6 +23,12 @@
     color: rgb(199, 199, 199); 
   }
 }
+@layer utilities {
+  .fine-border {
+    -webkit-text-stroke-width: 0.9px; 
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+  }
+}
 
 
 @layer utilities {

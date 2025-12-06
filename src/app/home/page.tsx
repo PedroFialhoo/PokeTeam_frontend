@@ -5,6 +5,9 @@ export default function HomePage() {
       <p className="mt-4 text-neutral-600 text-xl">
         Explore pokemons e crie diversos times e combinações!
       </p>
+      <p className="mt-2 text-neutral-600 text-l">
+        Escolha uma opção na aba lateral para começar!
+      </p>
     </>
   );
 }
