@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Pokemon {
   id: number;
@@ -29,6 +30,7 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
   const [offset, setOffset] = useState(0);
   const loadedIds = useRef(new Set<number>());
   const [nameSearch, setNameSearch] = useState<string>("")
+  const router = useRouter()
 
   function getPokemons() {
     if (loading) return
@@ -83,10 +85,9 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
       .then((res) => res.json())
       .then((data) => {
         setPokemonSearch(data)
-      })
+      }) 
       .catch((err) => console.error(err))
-      .finally(() => setLoadingSearch(false))
-      
+      .finally(() => setLoadingSearch(false))    
       
   }
 
@@ -116,9 +117,14 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
     }
   }
 
+  function seeDetails(pokemon: any) {
+    if(allowAdd) return
+    router.replace(`/home/pokemons/${pokemon.id}`);
+  }
+
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-2 max-w-[50%]">
+      <div className="flex items-center gap-2 max-w-full md:max-w-[50%]">
         <div className="relative flex-1">
           <Input
             className="pl-10 hover:bg-neutral-300"
@@ -137,18 +143,24 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
         {pokemonSearch && 
         <PokeCard
             key={pokemonSearch.id}
             pokemon={pokemonSearch}
-            onClick={() => addPokemon(pokemonSearch)}
+            onClick={() => {
+              addPokemon(pokemonSearch)
+              seeDetails(pokemonSearch)
+            }}
           />}
         {pokemons.map((pokemon) => (
           <PokeCard
             key={pokemon.id}
             pokemon={pokemon}
-            onClick={() => addPokemon(pokemon)}
+            onClick={() => {
+              addPokemon(pokemon)
+              seeDetails(pokemon)
+            }}
           />
         ))}
 

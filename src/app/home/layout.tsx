@@ -13,9 +13,11 @@ useEffect(() => {
     }, [router])
 
     return (
-        <div className="flex min-h-screen">
+        <div className="bg-neutral-100">
             <Sidebar  />
-            <main className="flex-1 p-8 bg-neutral-100 ml-64">{children}</main>
+            <div className="flex min-h-screen">            
+                <main className="flex-1 p-8 bg-neutral-100 md:ml-10 ml-2 md:p-5">{children}</main>
+            </div>
         </div>
     );
 }

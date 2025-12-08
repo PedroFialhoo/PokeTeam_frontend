@@ -42,14 +42,14 @@ export default function PokeCard({ pokemon, onClick }: PokeCardProps) {
   return (
     <div
       onClick={onClick}
-      className={`p-4 rounded-xl shadow flex flex-col transition-transform duration-200 hover:-translate-y-3 hover:brightness-90 cursor-pointer ${
+      className={`p-4 rounded-xl shadow flex flex-col transition-transform duration-200 hover:-translate-y-3 hover:brightness-90 cursor-pointer w-full md:w-auto ${
         typeColors[pokemon.types[0].type.name] || "bg-gray-400"
       }`}
     >
       <span className="text-black opacity-30 text-right text-sm">#{pokemon.id}</span>
       <h2 className="text-white text-lg font-bold capitalize mb-1">{pokemon.name}</h2>
       <div className="flex justify-between items-center mt-2">
-        <ul className="flex flex-col space-y-2">
+        <ul className="flex flex-col gap-2 md:space-y-2 md:gap-0">
           {pokemon.types.map(t => (
             <li
               key={t.slot}
@@ -64,9 +64,9 @@ export default function PokeCard({ pokemon, onClick }: PokeCardProps) {
         <Image
           src={pokemon.photo}
           alt={pokemon.name}
-          width={100}
-          height={100}
-          className="object-contain drop-shadow-md"
+          width={90}
+          height={90}
+          className="md:w-[110px] md:h-[110px] object-contain drop-shadow-md"
         />
       </div>
     </div>
