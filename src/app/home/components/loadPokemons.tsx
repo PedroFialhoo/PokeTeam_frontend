@@ -23,9 +23,12 @@ interface Pokemon {
 
 export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; setTeam?: (newTeam: any[]) => void; allowAdd: boolean;}){
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [pokemonSearch, setPokemonSearch] = useState<Pokemon>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
   const [offset, setOffset] = useState(0);
   const loadedIds = useRef(new Set<number>());
+  const [nameSearch, setNameSearch] = useState<string>("")
 
   function getPokemons() {
     if (loading) return
@@ -57,6 +60,42 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
       .catch((err) => console.error(err));
   }
 
+  function getPokemonByName() {
+    console.log("Buscando pokemon por nome:", nameSearch);
+    if (!nameSearch.trim()) {
+      alert("Digite um nome para buscar");
+      return;
+    }
+
+    if (loadingSearch) return;
+    setLoadingSearch(true);
+
+    const token = localStorage.getItem("poketeam-token");
+
+    fetch(`http://127.0.0.1:8000/api/pokemon/getPokemonByName`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name: nameSearch.toLowerCase() }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPokemonSearch(data)
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingSearch(false))
+      
+      
+  }
+
+  useEffect(() => {
+    if (!nameSearch.trim()) {
+      setPokemonSearch(undefined);
+    }
+  }, [nameSearch]);
+
   useEffect(() => {
     getPokemons();
   }, []);
@@ -69,6 +108,8 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
       const newTeam = [...team];
       newTeam[index] = pokemon;
       setTeam(newTeam);
+      alert(`${pokemon.name} adicionado ao time!`);
+      return;
     }
     else{
       alert('Time completo, para adicionar um novo pokémon clique em um pokemon já selecionado para remove-lo do time!')
@@ -82,15 +123,27 @@ export default function LoadPokemons({team, setTeam, allowAdd,}: {team?: any[]; 
           <Input
             className="pl-10 hover:bg-neutral-300"
             placeholder="Buscar pelo nome..."
+            value={nameSearch}            
+            onChange={(e) => setNameSearch(e.target.value)}
           />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"/>
         </div>
-        <Button className="bg-red-500 hover:border-2 hover:bg-gray-800 hover:border-red-500">
-          Buscar
+        <Button
+          className="bg-red-500 hover:border-2 hover:bg-gray-800 hover:border-red-500"
+          onClick={() => getPokemonByName()}
+          disabled={loadingSearch} 
+        >
+          {loadingSearch ? "Buscando..." : "Buscar"}
         </Button>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {pokemonSearch && 
+        <PokeCard
+            key={pokemonSearch.id}
+            pokemon={pokemonSearch}
+            onClick={() => addPokemon(pokemonSearch)}
+          />}
         {pokemons.map((pokemon) => (
           <PokeCard
             key={pokemon.id}
