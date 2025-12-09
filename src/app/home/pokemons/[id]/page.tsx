@@ -70,6 +70,27 @@ interface Pokemon {
 //   "status": []
 // }
 
+const typeColors: Record<string, string> = {
+  normal: "bg-[#8d8e72]",
+  grass: "bg-[#53a02f]",
+  fire: "bg-[#ce661c]",
+  water: "bg-[#678fee]",
+  electric: "bg-[#ddb100]",
+  ice: "bg-[#98d5d7]",
+  ground: "bg-[#a08d59]",
+  flying: "bg-[#a98ff0]",
+  poison: "bg-[#a040a0]",
+  fighting: "bg-[#bf3029]",
+  psychic: "bg-[#f65687]",
+  dark: "bg-[#725847]",
+  rock: "bg-[#b8a137]",
+  bug: "bg-[#a8b720]",
+  ghost: "bg-[#6e5896]",
+  steel: "bg-[#b9b7cf]",
+  dragon: "bg-[#6f38f6]",
+  fairy: "bg-[#f9aec7]",
+}
+
 export default function PokemonPage() {
   const { id } = useParams();
   const token = localStorage.getItem("poketeam-token");
@@ -139,7 +160,9 @@ export default function PokemonPage() {
           </h1>
           <div
             id="pokemonDetail"
-            className="bg-zinc-800 flex flex-col justify-center items-center w-[700px] max-w-[90vw] p-10 pb-10 mx-auto rounded-2xl"
+            className={`flex flex-col justify-center items-center w-[700px] max-w-[90vw] p-10 pb-10 mx-auto rounded-2xl ${
+                typeColors[pokemonSearch.types[0].type.name] || "bg-gray-500"
+              }`}
           >
             <div className="poke-container relative w-full h-[300px] flex justify-center items-end rounded-2xl overflow-hidden mb-5">
               <div

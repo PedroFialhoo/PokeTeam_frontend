@@ -4,7 +4,7 @@ import Image from "next/image";
 interface Pokemon {
   id: number;
   name: string;
-  number: number;
+  number?: number;
   types: {
     slot: number;
     type: { name: string; url: string };
